@@ -15,9 +15,11 @@ namespace Vsite.CSharp.Labos4.Primjer1
             int[] brojevi = { 2, 7, 1, 12, 5, 9, 78, 4, 11, 13 };
             // TODO:01 Napisati upit koji će iz gornje liste dohvatiti samo brojeve veće od 10 
 
+            var rezultatUpita = from broj in brojevi where broj > 10 select broj;
+            //var retultatiUpita = brojevi.Where()
 
-            //foreach (var s in rezUpita)
-            //    Console.Write(s.ToString() + " ");
+            foreach (var s in rezultatUpita)
+                Console.Write(s.ToString() + " ");
 
             Console.WriteLine();
             Console.ReadKey(false);
