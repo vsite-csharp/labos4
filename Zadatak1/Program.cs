@@ -54,11 +54,11 @@ namespace Vsite.CSharp.Labos4.Zadatak1
                 Console.WriteLine(s.ImePrezime);
 
             Console.WriteLine($"Studenti koji su pali ispit iz predmeta {imePredmeta}:");
-            // :03d Napisati upit koji će rezultata prethodnog upita vratiti sve studente koji su pali ispit iz zadanog predmeta.
-            var studentiPaliIspit = from student studentiNaIspitu
+             //:03d Napisati upit koji će rezultata prethodnog upita vratiti sve studente koji su pali ispit iz zadanog predmeta.
+            var studentiPaliIspit = from student in studentiNaIspitu
                                     from ispit in student.Ispiti
                                     where ispit.Ocjena == 1
-                                    select new {student, ispit};
+                                    select new { student, ispit };
 
 
             foreach (var s in studentiPaliIspit)
