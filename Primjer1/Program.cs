@@ -13,11 +13,12 @@ namespace Vsite.CSharp.Labos4.Primjer1
         static void Main(string[] args)
         {
             int[] brojevi = { 2, 7, 1, 12, 5, 9, 78, 4, 11, 13 };
-            // TODO:01 Napisati upit koji će iz gornje liste dohvatiti samo brojeve veće od 10 
+            // Napisati upit koji će iz gornje liste dohvatiti samo brojeve veće od 10 
 
+            var rezUpita = brojevi.Where(broj => broj > 10);
 
-            //foreach (var s in rezUpita)
-            //    Console.Write(s.ToString() + " ");
+            foreach (var s in rezUpita)
+                Console.Write(s.ToString() + " ");
 
             Console.WriteLine();
             Console.ReadKey(false);
