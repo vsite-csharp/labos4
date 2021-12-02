@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -49,9 +50,27 @@ namespace Vsite.CSharp.Labos4.Primjer2
             };
 
             // TODO:02 Napisati upit koji će iz popisa najboljih učenika prikazati samo one za koje u listi profesora naveden razrednik
+            //var upit = from prof in listaProfesora
+            //    from ucenik in popisNajboljihUčenika
+            //           select new
+            //    {
+            //        ucenik.ImePrezimeUčenika,
+            //        ucenik.RazredUčenika,
+            //        prof.ImePrezimeProfesora
+            //    };
 
-            //foreach (var s in upit)
-            //    Console.WriteLine("Učeniku {0} iz razreda {1} razrednik je {2}", s.ImePrezimeUčenika, s.RazredUčenika, s.ImePrezimeProfesora);
+            var upit = 
+                 from učenik in popisNajboljihUčenika 
+                 from profesor in listaProfesora 
+                 where profesor.JeRazrednikRazredu == učenik.RazredUčenika
+                select new
+                {
+                    učenik.ImePrezimeUčenika,
+                    učenik.RazredUčenika,
+                    profesor.ImePrezimeProfesora
+                };
+            foreach (var s in upit)
+                Console.WriteLine("Učeniku {0} iz razreda {1} razrednik je {2}", s.ImePrezimeUčenika, s.RazredUčenika, s.ImePrezimeProfesora);
 
             Console.ReadKey(false);
         }
