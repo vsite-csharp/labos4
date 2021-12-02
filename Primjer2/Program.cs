@@ -48,8 +48,8 @@ namespace Vsite.CSharp.Labos4.Primjer2
                 new Učenik{ ImePrezimeUčenika="Petra Petrić", RazredUčenika="4.h"}
             };
 
-            // TODO:02 Napisati upit koji će iz popisa najboljih učenika prikazati samo one za koje u listi profesora naveden razrednik
-            var upit = from Profesor in listaProfesora from Učenik in popisNajboljihUčenika select new { Učenik.ImePrezimeUčenika, Učenik.RazredUčenika, Profesor.ImePrezimeProfesora };
+            // :02 Napisati upit koji će iz popisa najboljih učenika prikazati samo one za koje u listi profesora naveden razrednik
+            //var upit = from Profesor in listaProfesora from Učenik in popisNajboljihUčenika select new { Učenik.ImePrezimeUčenika, Učenik.RazredUčenika, Profesor.ImePrezimeProfesora };
         
 
             //foreach (var s in upit)
