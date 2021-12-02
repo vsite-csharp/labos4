@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Vsite.CSharp.Labos4.Zadatak1
 {
-    // TODO:03a Definirati klasu koja predstavlja studenta i klasu koja predstavlja ispit.
+    //  Definirati klasu koja predstavlja studenta i klasu koja predstavlja ispit.
     // Klasa Ispit sadrži članove Naziv i Ocjena, a klasa Student sadrži članove ImePrezime i listu Ispit[] ispita na koje je student izašao.
 
     class Ispit
@@ -25,7 +25,7 @@ namespace Vsite.CSharp.Labos4.Zadatak1
     {
         static void Main(string[] args)
         {
-            // TODO:03b Zadati listu studenata s popisom ispita na koje je izašao.
+            //  Zadati listu studenata s popisom ispita na koje je izašao.
             var listaStudenti = new Student[]
             {
                 new Student()
