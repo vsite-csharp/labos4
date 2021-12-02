@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,10 +49,26 @@ namespace Vsite.CSharp.Labos4.Primjer2
                 new Učenik{ ImePrezimeUčenika="Petra Petrić", RazredUčenika="4.h"}
             };
 
-            // TODO:02 Napisati upit koji će iz popisa najboljih učenika prikazati samo one za koje u listi profesora naveden razrednik
-
-            //foreach (var s in upit)
-            //    Console.WriteLine("Učeniku {0} iz razreda {1} razrednik je {2}", s.ImePrezimeUčenika, s.RazredUčenika, s.ImePrezimeProfesora);
+            // :02 Napisati upit koji će iz popisa najboljih učenika prikazati samo one za koje u listi profesora naveden razrednik
+            /*var upit = from profesor in listaProfesora
+                from ucenik in popisNajboljihUčenika
+                select new
+                {
+                    ucenik.ImePrezimeUčenika,
+                    ucenik.RazredUčenika,
+                    profesor.ImePrezimeProfesora
+                };*/
+            var upit = from ucenik in popisNajboljihUčenika
+                from profesor in listaProfesora
+                    where profesor.JeRazrednikRazredu == ucenik.RazredUčenika
+                    select new
+                    {
+                        ucenik.ImePrezimeUčenika,
+                        ucenik.RazredUčenika,
+                        profesor.ImePrezimeProfesora
+                    };
+            foreach (var s in upit)
+                Console.WriteLine("Učeniku {0} iz razreda {1} razrednik je {2}", s.ImePrezimeUčenika, s.RazredUčenika, s.ImePrezimeProfesora);
 
             Console.ReadKey(false);
         }
