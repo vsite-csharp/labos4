@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Linq;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -42,6 +43,14 @@ namespace Vsite.CSharp.Labos4.Zadatak2
                 Console.WriteLine("Student " + studIIspit.student.ime + " " + studIIspit.student.prezime + " " + predmeti.Where(pred => pred.pred_ID == studIIspit.ispit.pred_ID).Select(pred => pred.naziv_pred).FirstOrDefault());
             }
 
+            Console.WriteLine();
+            Console.WriteLine("Izvrsni studenti ");
+            var excelentStudents = dc.AllExcelentStudentsGet();
+
+            foreach (var excelentStudent in excelentStudents)
+            {
+                Console.WriteLine(excelentStudent.ime + " " + excelentStudent.prezime + " prosjek " + excelentStudent.prosjek);
+            }
         }
     }
 }
