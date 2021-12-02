@@ -10,4 +10,24 @@
       <Column Name="pbrRod" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.ispit" Member="ispits">
+    <Type Name="ispit">
+      <Column Name="stud_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="dat_ispit" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="pred_ID" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nast_ID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ocjena" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Association Name="predmet_ispit" Member="predmet" ThisKey="pred_ID" OtherKey="pred_ID" Type="predmet" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.predmet" Member="predmets">
+    <Type Name="predmet">
+      <Column Name="pred_ID" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="naziv_pred" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="sati_pred" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="sati_av" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="sati_lab" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Association Name="predmet_ispit" Member="ispits" ThisKey="pred_ID" OtherKey="pred_ID" Type="ispit" />
+    </Type>
+  </Table>
 </Database>

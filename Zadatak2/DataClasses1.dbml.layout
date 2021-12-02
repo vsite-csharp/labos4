@@ -8,5 +8,24 @@
         <elementListCompartment Id="3a3415d5-cc16-4b3d-a844-d0fd1be49ffd" absoluteBounds="5.265, 1.835, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="96faed92-1974-48a9-9463-a98f9007b299" absoluteBounds="2.25, 1.25, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/DataClasses1DataContext/ispit" />
+      <nestedChildShapes>
+        <elementListCompartment Id="52fd3f0a-89f2-4cd1-a3cc-832b78929adc" absoluteBounds="2.265, 1.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="03f31726-1955-4666-aa95-c46b35a53ac7" absoluteBounds="8.75, 1.375, 2, 1.7708968098958331">
+      <DataClassMoniker Name="/DataClasses1DataContext/predmet" />
+      <nestedChildShapes>
+        <elementListCompartment Id="618ca5cf-0163-41d6-95e7-68363dd2ad03" absoluteBounds="8.765, 1.835, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.75 : 1.375); (8.375 : 1); (4.625 : 1); (4.625 : 0.875); (4.25 : 1.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/DataClasses1DataContext/predmet/predmet_ispit" />
+      <nodes>
+        <classShapeMoniker Id="03f31726-1955-4666-aa95-c46b35a53ac7" />
+        <classShapeMoniker Id="96faed92-1974-48a9-9463-a98f9007b299" />
+      </nodes>
+    </associationConnector>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
