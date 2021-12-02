@@ -50,8 +50,31 @@ namespace Vsite.CSharp.Labos4.Primjer2
 
             // TODO:02 Napisati upit koji će iz popisa najboljih učenika prikazati samo one za koje u listi profesora naveden razrednik
 
-            //foreach (var s in upit)
-            //    Console.WriteLine("Učeniku {0} iz razreda {1} razrednik je {2}", s.ImePrezimeUčenika, s.RazredUčenika, s.ImePrezimeProfesora);
+            var upit = from profesor in listaProfesora
+                from ucenik in popisNajboljihUčenika
+                where ucenik.RazredUčenika.Equals(profesor.JeRazrednikRazredu)
+                select new
+                {
+                    ImePrezimeUčenika = ucenik.ImePrezimeUčenika, RazredUčenika = profesor.JeRazrednikRazredu,
+                    ImePrezimeProfesora = profesor.ImePrezimeProfesora
+                };
+
+            var upit2 = listaProfesora.Join(popisNajboljihUčenika, profesor => profesor.JeRazrednikRazredu,
+                ucenik => ucenik.RazredUčenika, (profesor, ucenik) => new
+                {
+                    ImePrezimeUčenika = ucenik.ImePrezimeUčenika,
+                    RazredUčenika = profesor.JeRazrednikRazredu,
+                    ImePrezimeProfesora = profesor.ImePrezimeProfesora
+                });
+
+            foreach (var s in upit)
+                Console.WriteLine("Učeniku {0} iz razreda {1} razrednik je {2}", s.ImePrezimeUčenika, s.RazredUčenika, s.ImePrezimeProfesora);
+
+            Console.WriteLine();
+
+            foreach (var s in upit2)
+                Console.WriteLine("Učeniku {0} iz razreda {1} razrednik je {2}", s.ImePrezimeUčenika, s.RazredUčenika, s.ImePrezimeProfesora);
+
 
             Console.ReadKey(false);
         }
