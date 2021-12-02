@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,8 +14,8 @@ namespace Vsite.CSharp.Labos4.Primjer1
         static void Main(string[] args)
         {
             int[] brojevi = { 2, 7, 1, 12, 5, 9, 78, 4, 11, 13 };
-            // TODO:01 Napisati upit koji će iz gornje liste dohvatiti samo brojeve veće od 10 
-
+            // 01 Napisati upit koji će iz gornje liste dohvatiti samo brojeve veće od 10 
+            var rezUpita = from broj in brojevi where broj > 10 select broj;
 
             //foreach (var s in rezUpita)
             //    Console.Write(s.ToString() + " ");
