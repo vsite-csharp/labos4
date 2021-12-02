@@ -10,7 +10,7 @@ namespace Vsite.CSharp.Labos4.Zadatak2
     {
         static void Main(string[] args)
         {
-
+            
         }
     }
 }
