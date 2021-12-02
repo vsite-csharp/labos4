@@ -17,8 +17,8 @@ namespace Vsite.CSharp.Labos4.Primjer1
             // 01 Napisati upit koji će iz gornje liste dohvatiti samo brojeve veće od 10 
             var rezUpita = from broj in brojevi where broj > 10 select broj;
 
-            //foreach (var s in rezUpita)
-            //    Console.Write(s.ToString() + " ");
+            foreach (var s in rezUpita)
+                Console.Write(s.ToString() + " ");
 
             Console.WriteLine();
             Console.ReadKey(false);

@@ -61,7 +61,7 @@ namespace Vsite.CSharp.Labos4.Zadatak1
             //    Console.WriteLine(s.ImePrezime);
 
             Console.WriteLine($"Studenti koji su pali ispit iz predmeta {imePredmeta}:");
-            // TODO:03d Napisati upit koji će rezultata prethodnog upita vratiti sve studente koji su pali ispit iz zadanog predmeta.
+            // 03d Napisati upit koji će rezultata prethodnog upita vratiti sve studente koji su pali ispit iz zadanog predmeta.
             var studentiNaIspitu = from student in studenti
                 from ispit in student.Ispiti
                 where ispit.Naziv == imePredmeta select student;
