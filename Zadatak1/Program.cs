@@ -33,20 +33,27 @@ namespace Vsite.CSharp.Labos4.Zadatak1
             };
             string imePredmeta = "Matematika";
             Console.WriteLine("Studenti koji su izašli na ispit iz predmeta {imePredmeta}");
-            // TODO:03c Napisati upit koji će vratiti popis svih studenata koji su izašli na ispit iz zadanog predmeta.
-            //var studentiNaIspitu = from stud in studenti
-            //                       from ispit in stud.Ispiti
-            //                       where ispit.Naziv == imePredmeta
-            //                       select stud;
+            // 03c Napisati upit koji će vratiti popis svih studenata koji su izašli na ispit iz zadanog predmeta.
+            var studentiNaIspitu = from stud in studenti
+                                   from ispit in stud.Ispiti
+                                   where ispit.Naziv == imePredmeta
+                                   select new { stud.ImePrezime };
 
-            //foreach (var s in studentiNaIspitu)
-            //    Console.WriteLine(s.ImePrezime);
+            foreach (var s in studentiNaIspitu)
+                Console.WriteLine(s.ImePrezime);
 
             Console.WriteLine($"Studenti koji su pali ispit iz predmeta {imePredmeta}:");
-            // TODO:03d Napisati upit koji će rezultata prethodnog upita vratiti sve studente koji su pali ispit iz zadanog predmeta.
+            // 03d Napisati upit koji će rezultata prethodnog upita vratiti sve studente koji su pali ispit iz zadanog predmeta.
+            var pali = from stud in studenti
+                       from ispit in stud.Ispiti
+                       where ispit.Naziv == imePredmeta
+                       where ispit.Ocjena == 1
+                       select new { stud.ImePrezime, ispit.Naziv };
 
-            //foreach (var s in studentiPaliIspit)
-            //    Console.WriteLine($"{s.student.Ime} je pao {s.ispit.Naziv}");
+            foreach (var s in pali)
+                Console.WriteLine($"{s.ImePrezime} je pao {s.Naziv}");
+
+            Console.ReadLine();
         }
     }
 }
