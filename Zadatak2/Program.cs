@@ -90,6 +90,12 @@ namespace Vsite.CSharp.Labos4.Zadatak2
             foreach (var s in studentiPaliIspit)
                 Console.WriteLine($"{s.Ime} je pao/la predmet {s.naziv}.");
 
+            Console.WriteLine($"Najbolji studenti:");
+
+            var najbolji = dc.AllExcelentStudentsGet();
+            foreach(var top in najbolji)
+                Console.WriteLine($"sID: {top.stud_ID}, Ime: {top.ime} {top.prezime}, prosjek: {top.prosjek}");
+
             Console.ReadKey(false);
         }
     }

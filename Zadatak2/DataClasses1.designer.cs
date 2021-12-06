@@ -116,6 +116,13 @@ namespace Vsite.CSharp.Labos4.Zadatak2
 				return this.GetTable<nastavnik>();
 			}
 		}
+		
+		[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.AllExcelentStudentsGet")]
+		public ISingleResult<AllExcelentStudentsGetResult> AllExcelentStudentsGet()
+		{
+			IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())));
+			return ((ISingleResult<AllExcelentStudentsGetResult>)(result.ReturnValue));
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.student")]
@@ -1016,6 +1023,86 @@ namespace Vsite.CSharp.Labos4.Zadatak2
 		{
 			this.SendPropertyChanging();
 			entity.nastavnik = null;
+		}
+	}
+	
+	public partial class AllExcelentStudentsGetResult
+	{
+		
+		private int _stud_ID;
+		
+		private string _ime;
+		
+		private string _prezime;
+		
+		private System.Nullable<int> _prosjek;
+		
+		public AllExcelentStudentsGetResult()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_stud_ID", DbType="Int NOT NULL")]
+		public int stud_ID
+		{
+			get
+			{
+				return this._stud_ID;
+			}
+			set
+			{
+				if ((this._stud_ID != value))
+				{
+					this._stud_ID = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ime", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+		public string ime
+		{
+			get
+			{
+				return this._ime;
+			}
+			set
+			{
+				if ((this._ime != value))
+				{
+					this._ime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_prezime", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+		public string prezime
+		{
+			get
+			{
+				return this._prezime;
+			}
+			set
+			{
+				if ((this._prezime != value))
+				{
+					this._prezime = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_prosjek", DbType="Int")]
+		public System.Nullable<int> prosjek
+		{
+			get
+			{
+				return this._prosjek;
+			}
+			set
+			{
+				if ((this._prosjek != value))
+				{
+					this._prosjek = value;
+				}
+			}
 		}
 	}
 }
