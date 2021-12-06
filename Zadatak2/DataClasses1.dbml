@@ -8,6 +8,43 @@
       <Column Name="jmbg" Type="System.String" DbType="NVarChar(13)" CanBeNull="true" />
       <Column Name="datRod" Type="System.DateTime" DbType="SmallDateTime" CanBeNull="true" />
       <Column Name="pbrRod" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="mjesto_student" Member="mjesto" ThisKey="pbrRod" OtherKey="pbr" Type="mjesto" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ispit" Member="ispits">
+    <Type Name="ispit">
+      <Column Name="stud_ID" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="dat_ispit" Type="System.DateTime" DbType="SmallDateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="pred_ID" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="nast_ID" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="ocjena" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Association Name="predmet_ispit" Member="predmet" ThisKey="pred_ID" OtherKey="pred_ID" Type="predmet" IsForeignKey="true" />
+      <Association Name="nastavnik_ispit" Member="nastavnik" ThisKey="nast_ID" OtherKey="nast_ID" Type="nastavnik" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.predmet" Member="predmets">
+    <Type Name="predmet">
+      <Column Name="pred_ID" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="naziv_pred" Type="System.String" DbType="NVarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="sati_pred" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="sati_av" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Column Name="sati_lab" Type="System.Int16" DbType="SmallInt" CanBeNull="true" />
+      <Association Name="predmet_ispit" Member="ispits" ThisKey="pred_ID" OtherKey="pred_ID" Type="ispit" />
+    </Type>
+  </Table>
+  <Table Name="dbo.mjesto" Member="mjestos">
+    <Type Name="mjesto">
+      <Column Name="pbr" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="naziv" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Association Name="mjesto_student" Member="students" ThisKey="pbr" OtherKey="pbrRod" Type="student" />
+    </Type>
+  </Table>
+  <Table Name="dbo.nastavnik" Member="nastavniks">
+    <Type Name="nastavnik">
+      <Column Name="nast_ID" Type="System.Int16" DbType="SmallInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ime" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Column Name="prezime" Type="System.String" DbType="NVarChar(20) NOT NULL" CanBeNull="false" />
+      <Association Name="nastavnik_ispit" Member="ispits" ThisKey="nast_ID" OtherKey="nast_ID" Type="ispit" />
     </Type>
   </Table>
 </Database>

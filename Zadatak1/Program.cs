@@ -28,7 +28,7 @@ namespace Vsite.CSharp.Labos4.Zadatak1
     {
         static void Main(string[] args)
         {
-            // TODO:03b Zadati listu studenata s popisom ispita na koje je izašao.
+            // Zadati listu studenata s popisom ispita na koje je izašao.
             var studenti = new List<Student>
             {
                 new Student{ ImePrezime="Pero Perić", Ispiti = new Ispit[]{ new Ispit{Naziv = "Matematika", Ocjena = 1 } } },
@@ -40,7 +40,7 @@ namespace Vsite.CSharp.Labos4.Zadatak1
 
             string imePredmeta = "Matematika";
             Console.WriteLine($"Studenti koji su izašli na ispit iz predmeta {imePredmeta}");
-            // TODO:03c Napisati upit koji će vratiti popis svih studenata koji su izašli na ispit iz zadanog predmeta.
+            // Napisati upit koji će vratiti popis svih studenata koji su izašli na ispit iz zadanog predmeta.
             var studentiNaIspitu = from student in studenti
                                    from ispit in student.Ispiti
                                    where ispit.Naziv == imePredmeta

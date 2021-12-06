@@ -33,6 +33,18 @@ namespace Vsite.CSharp.Labos4.Zadatak2
     partial void Insertstudent(student instance);
     partial void Updatestudent(student instance);
     partial void Deletestudent(student instance);
+    partial void Insertispit(ispit instance);
+    partial void Updateispit(ispit instance);
+    partial void Deleteispit(ispit instance);
+    partial void Insertpredmet(predmet instance);
+    partial void Updatepredmet(predmet instance);
+    partial void Deletepredmet(predmet instance);
+    partial void Insertmjesto(mjesto instance);
+    partial void Updatemjesto(mjesto instance);
+    partial void Deletemjesto(mjesto instance);
+    partial void Insertnastavnik(nastavnik instance);
+    partial void Updatenastavnik(nastavnik instance);
+    partial void Deletenastavnik(nastavnik instance);
     #endregion
 		
 		public DataClasses1DataContext() : 
@@ -72,6 +84,38 @@ namespace Vsite.CSharp.Labos4.Zadatak2
 				return this.GetTable<student>();
 			}
 		}
+		
+		public System.Data.Linq.Table<ispit> ispits
+		{
+			get
+			{
+				return this.GetTable<ispit>();
+			}
+		}
+		
+		public System.Data.Linq.Table<predmet> predmets
+		{
+			get
+			{
+				return this.GetTable<predmet>();
+			}
+		}
+		
+		public System.Data.Linq.Table<mjesto> mjestos
+		{
+			get
+			{
+				return this.GetTable<mjesto>();
+			}
+		}
+		
+		public System.Data.Linq.Table<nastavnik> nastavniks
+		{
+			get
+			{
+				return this.GetTable<nastavnik>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.student")]
@@ -91,6 +135,8 @@ namespace Vsite.CSharp.Labos4.Zadatak2
 		private System.Nullable<System.DateTime> _datRod;
 		
 		private System.Nullable<int> _pbrRod;
+		
+		private EntityRef<mjesto> _mjesto;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -112,6 +158,7 @@ namespace Vsite.CSharp.Labos4.Zadatak2
 		
 		public student()
 		{
+			this._mjesto = default(EntityRef<mjesto>);
 			OnCreated();
 		}
 		
@@ -226,11 +273,49 @@ namespace Vsite.CSharp.Labos4.Zadatak2
 			{
 				if ((this._pbrRod != value))
 				{
+					if (this._mjesto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnpbrRodChanging(value);
 					this.SendPropertyChanging();
 					this._pbrRod = value;
 					this.SendPropertyChanged("pbrRod");
 					this.OnpbrRodChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="mjesto_student", Storage="_mjesto", ThisKey="pbrRod", OtherKey="pbr", IsForeignKey=true)]
+		public mjesto mjesto
+		{
+			get
+			{
+				return this._mjesto.Entity;
+			}
+			set
+			{
+				mjesto previousValue = this._mjesto.Entity;
+				if (((previousValue != value) 
+							|| (this._mjesto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._mjesto.Entity = null;
+						previousValue.students.Remove(this);
+					}
+					this._mjesto.Entity = value;
+					if ((value != null))
+					{
+						value.students.Add(this);
+						this._pbrRod = value.pbr;
+					}
+					else
+					{
+						this._pbrRod = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("mjesto");
 				}
 			}
 		}
@@ -253,6 +338,684 @@ namespace Vsite.CSharp.Labos4.Zadatak2
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ispit")]
+	public partial class ispit : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _stud_ID;
+		
+		private System.DateTime _dat_ispit;
+		
+		private short _pred_ID;
+		
+		private System.Nullable<short> _nast_ID;
+		
+		private System.Nullable<short> _ocjena;
+		
+		private EntityRef<predmet> _predmet;
+		
+		private EntityRef<nastavnik> _nastavnik;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onstud_IDChanging(int value);
+    partial void Onstud_IDChanged();
+    partial void Ondat_ispitChanging(System.DateTime value);
+    partial void Ondat_ispitChanged();
+    partial void Onpred_IDChanging(short value);
+    partial void Onpred_IDChanged();
+    partial void Onnast_IDChanging(System.Nullable<short> value);
+    partial void Onnast_IDChanged();
+    partial void OnocjenaChanging(System.Nullable<short> value);
+    partial void OnocjenaChanged();
+    #endregion
+		
+		public ispit()
+		{
+			this._predmet = default(EntityRef<predmet>);
+			this._nastavnik = default(EntityRef<nastavnik>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_stud_ID", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int stud_ID
+		{
+			get
+			{
+				return this._stud_ID;
+			}
+			set
+			{
+				if ((this._stud_ID != value))
+				{
+					this.Onstud_IDChanging(value);
+					this.SendPropertyChanging();
+					this._stud_ID = value;
+					this.SendPropertyChanged("stud_ID");
+					this.Onstud_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_dat_ispit", DbType="SmallDateTime NOT NULL", IsPrimaryKey=true)]
+		public System.DateTime dat_ispit
+		{
+			get
+			{
+				return this._dat_ispit;
+			}
+			set
+			{
+				if ((this._dat_ispit != value))
+				{
+					this.Ondat_ispitChanging(value);
+					this.SendPropertyChanging();
+					this._dat_ispit = value;
+					this.SendPropertyChanged("dat_ispit");
+					this.Ondat_ispitChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pred_ID", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short pred_ID
+		{
+			get
+			{
+				return this._pred_ID;
+			}
+			set
+			{
+				if ((this._pred_ID != value))
+				{
+					if (this._predmet.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onpred_IDChanging(value);
+					this.SendPropertyChanging();
+					this._pred_ID = value;
+					this.SendPropertyChanged("pred_ID");
+					this.Onpred_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nast_ID", DbType="SmallInt")]
+		public System.Nullable<short> nast_ID
+		{
+			get
+			{
+				return this._nast_ID;
+			}
+			set
+			{
+				if ((this._nast_ID != value))
+				{
+					if (this._nastavnik.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.Onnast_IDChanging(value);
+					this.SendPropertyChanging();
+					this._nast_ID = value;
+					this.SendPropertyChanged("nast_ID");
+					this.Onnast_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ocjena", DbType="SmallInt")]
+		public System.Nullable<short> ocjena
+		{
+			get
+			{
+				return this._ocjena;
+			}
+			set
+			{
+				if ((this._ocjena != value))
+				{
+					this.OnocjenaChanging(value);
+					this.SendPropertyChanging();
+					this._ocjena = value;
+					this.SendPropertyChanged("ocjena");
+					this.OnocjenaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="predmet_ispit", Storage="_predmet", ThisKey="pred_ID", OtherKey="pred_ID", IsForeignKey=true)]
+		public predmet predmet
+		{
+			get
+			{
+				return this._predmet.Entity;
+			}
+			set
+			{
+				predmet previousValue = this._predmet.Entity;
+				if (((previousValue != value) 
+							|| (this._predmet.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._predmet.Entity = null;
+						previousValue.ispits.Remove(this);
+					}
+					this._predmet.Entity = value;
+					if ((value != null))
+					{
+						value.ispits.Add(this);
+						this._pred_ID = value.pred_ID;
+					}
+					else
+					{
+						this._pred_ID = default(short);
+					}
+					this.SendPropertyChanged("predmet");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="nastavnik_ispit", Storage="_nastavnik", ThisKey="nast_ID", OtherKey="nast_ID", IsForeignKey=true)]
+		public nastavnik nastavnik
+		{
+			get
+			{
+				return this._nastavnik.Entity;
+			}
+			set
+			{
+				nastavnik previousValue = this._nastavnik.Entity;
+				if (((previousValue != value) 
+							|| (this._nastavnik.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._nastavnik.Entity = null;
+						previousValue.ispits.Remove(this);
+					}
+					this._nastavnik.Entity = value;
+					if ((value != null))
+					{
+						value.ispits.Add(this);
+						this._nast_ID = value.nast_ID;
+					}
+					else
+					{
+						this._nast_ID = default(Nullable<short>);
+					}
+					this.SendPropertyChanged("nastavnik");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.predmet")]
+	public partial class predmet : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private short _pred_ID;
+		
+		private string _naziv_pred;
+		
+		private System.Nullable<short> _sati_pred;
+		
+		private System.Nullable<short> _sati_av;
+		
+		private System.Nullable<short> _sati_lab;
+		
+		private EntitySet<ispit> _ispits;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onpred_IDChanging(short value);
+    partial void Onpred_IDChanged();
+    partial void Onnaziv_predChanging(string value);
+    partial void Onnaziv_predChanged();
+    partial void Onsati_predChanging(System.Nullable<short> value);
+    partial void Onsati_predChanged();
+    partial void Onsati_avChanging(System.Nullable<short> value);
+    partial void Onsati_avChanged();
+    partial void Onsati_labChanging(System.Nullable<short> value);
+    partial void Onsati_labChanged();
+    #endregion
+		
+		public predmet()
+		{
+			this._ispits = new EntitySet<ispit>(new Action<ispit>(this.attach_ispits), new Action<ispit>(this.detach_ispits));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pred_ID", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short pred_ID
+		{
+			get
+			{
+				return this._pred_ID;
+			}
+			set
+			{
+				if ((this._pred_ID != value))
+				{
+					this.Onpred_IDChanging(value);
+					this.SendPropertyChanging();
+					this._pred_ID = value;
+					this.SendPropertyChanged("pred_ID");
+					this.Onpred_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_naziv_pred", DbType="NVarChar(30) NOT NULL", CanBeNull=false)]
+		public string naziv_pred
+		{
+			get
+			{
+				return this._naziv_pred;
+			}
+			set
+			{
+				if ((this._naziv_pred != value))
+				{
+					this.Onnaziv_predChanging(value);
+					this.SendPropertyChanging();
+					this._naziv_pred = value;
+					this.SendPropertyChanged("naziv_pred");
+					this.Onnaziv_predChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sati_pred", DbType="SmallInt")]
+		public System.Nullable<short> sati_pred
+		{
+			get
+			{
+				return this._sati_pred;
+			}
+			set
+			{
+				if ((this._sati_pred != value))
+				{
+					this.Onsati_predChanging(value);
+					this.SendPropertyChanging();
+					this._sati_pred = value;
+					this.SendPropertyChanged("sati_pred");
+					this.Onsati_predChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sati_av", DbType="SmallInt")]
+		public System.Nullable<short> sati_av
+		{
+			get
+			{
+				return this._sati_av;
+			}
+			set
+			{
+				if ((this._sati_av != value))
+				{
+					this.Onsati_avChanging(value);
+					this.SendPropertyChanging();
+					this._sati_av = value;
+					this.SendPropertyChanged("sati_av");
+					this.Onsati_avChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sati_lab", DbType="SmallInt")]
+		public System.Nullable<short> sati_lab
+		{
+			get
+			{
+				return this._sati_lab;
+			}
+			set
+			{
+				if ((this._sati_lab != value))
+				{
+					this.Onsati_labChanging(value);
+					this.SendPropertyChanging();
+					this._sati_lab = value;
+					this.SendPropertyChanged("sati_lab");
+					this.Onsati_labChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="predmet_ispit", Storage="_ispits", ThisKey="pred_ID", OtherKey="pred_ID")]
+		public EntitySet<ispit> ispits
+		{
+			get
+			{
+				return this._ispits;
+			}
+			set
+			{
+				this._ispits.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ispits(ispit entity)
+		{
+			this.SendPropertyChanging();
+			entity.predmet = this;
+		}
+		
+		private void detach_ispits(ispit entity)
+		{
+			this.SendPropertyChanging();
+			entity.predmet = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.mjesto")]
+	public partial class mjesto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _pbr;
+		
+		private string _naziv;
+		
+		private EntitySet<student> _students;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnpbrChanging(int value);
+    partial void OnpbrChanged();
+    partial void OnnazivChanging(string value);
+    partial void OnnazivChanged();
+    #endregion
+		
+		public mjesto()
+		{
+			this._students = new EntitySet<student>(new Action<student>(this.attach_students), new Action<student>(this.detach_students));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pbr", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int pbr
+		{
+			get
+			{
+				return this._pbr;
+			}
+			set
+			{
+				if ((this._pbr != value))
+				{
+					this.OnpbrChanging(value);
+					this.SendPropertyChanging();
+					this._pbr = value;
+					this.SendPropertyChanged("pbr");
+					this.OnpbrChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_naziv", DbType="NVarChar(255)")]
+		public string naziv
+		{
+			get
+			{
+				return this._naziv;
+			}
+			set
+			{
+				if ((this._naziv != value))
+				{
+					this.OnnazivChanging(value);
+					this.SendPropertyChanging();
+					this._naziv = value;
+					this.SendPropertyChanged("naziv");
+					this.OnnazivChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="mjesto_student", Storage="_students", ThisKey="pbr", OtherKey="pbrRod")]
+		public EntitySet<student> students
+		{
+			get
+			{
+				return this._students;
+			}
+			set
+			{
+				this._students.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_students(student entity)
+		{
+			this.SendPropertyChanging();
+			entity.mjesto = this;
+		}
+		
+		private void detach_students(student entity)
+		{
+			this.SendPropertyChanging();
+			entity.mjesto = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.nastavnik")]
+	public partial class nastavnik : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private short _nast_ID;
+		
+		private string _ime;
+		
+		private string _prezime;
+		
+		private EntitySet<ispit> _ispits;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void Onnast_IDChanging(short value);
+    partial void Onnast_IDChanged();
+    partial void OnimeChanging(string value);
+    partial void OnimeChanged();
+    partial void OnprezimeChanging(string value);
+    partial void OnprezimeChanged();
+    #endregion
+		
+		public nastavnik()
+		{
+			this._ispits = new EntitySet<ispit>(new Action<ispit>(this.attach_ispits), new Action<ispit>(this.detach_ispits));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_nast_ID", DbType="SmallInt NOT NULL", IsPrimaryKey=true)]
+		public short nast_ID
+		{
+			get
+			{
+				return this._nast_ID;
+			}
+			set
+			{
+				if ((this._nast_ID != value))
+				{
+					this.Onnast_IDChanging(value);
+					this.SendPropertyChanging();
+					this._nast_ID = value;
+					this.SendPropertyChanged("nast_ID");
+					this.Onnast_IDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ime", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+		public string ime
+		{
+			get
+			{
+				return this._ime;
+			}
+			set
+			{
+				if ((this._ime != value))
+				{
+					this.OnimeChanging(value);
+					this.SendPropertyChanging();
+					this._ime = value;
+					this.SendPropertyChanged("ime");
+					this.OnimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_prezime", DbType="NVarChar(20) NOT NULL", CanBeNull=false)]
+		public string prezime
+		{
+			get
+			{
+				return this._prezime;
+			}
+			set
+			{
+				if ((this._prezime != value))
+				{
+					this.OnprezimeChanging(value);
+					this.SendPropertyChanging();
+					this._prezime = value;
+					this.SendPropertyChanged("prezime");
+					this.OnprezimeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="nastavnik_ispit", Storage="_ispits", ThisKey="nast_ID", OtherKey="nast_ID")]
+		public EntitySet<ispit> ispits
+		{
+			get
+			{
+				return this._ispits;
+			}
+			set
+			{
+				this._ispits.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ispits(ispit entity)
+		{
+			this.SendPropertyChanging();
+			entity.nastavnik = this;
+		}
+		
+		private void detach_ispits(ispit entity)
+		{
+			this.SendPropertyChanging();
+			entity.nastavnik = null;
 		}
 	}
 }
