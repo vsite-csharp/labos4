@@ -8,13 +8,13 @@ namespace Vsite.CSharp.Labos4.Zadatak1
 {
     // TODO:03a Definirati klasu koja predstavlja studenta i klasu koja predstavlja ispit.
     // Klasa Ispit sadrži članove Naziv i Ocjena, a klasa Student sadrži članove ImePrezime i listu Ispit[] ispita na koje je student izašao.
-
     class Ispit
     {
-        public string Naziv { get; set; }
+        public string Naziv { get; set;  }
         public int Ocjena { get; set; }
-    }
 
+    }
+  
     class Student
     {
         public string ImePrezime { get; set; }
@@ -25,6 +25,7 @@ namespace Vsite.CSharp.Labos4.Zadatak1
     {
         static void Main(string[] args)
         {
+
             // TODO:03b Zadati listu studenata s popisom ispita na koje je izašao.
             var studenti = new List<Student>
             {
@@ -58,15 +59,19 @@ namespace Vsite.CSharp.Labos4.Zadatak1
 
 
 
+
             foreach (var s in studentiNaIspitu)
                 Console.WriteLine(s.ImePrezime);
 
             Console.WriteLine($"Studenti koji su pali ispit iz predmeta {imePredmeta}:");
+
             // TODO:03d Napisati upit koji će rezultata prethodnog upita vratiti sve studente koji su pali ispit iz zadanog predmeta.
+
             var studentiPaliIspit = from student in studentiNaIspitu
                                     from ispit in student.Ispiti
                                     where ispit.Ocjena == 1
                                     select new { student, ispit };
+
             foreach (var s in studentiPaliIspit)
                 Console.WriteLine($"{s.student.ImePrezime} je pao {s.ispit.Naziv}");
         }
